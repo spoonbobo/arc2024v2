@@ -79,8 +79,7 @@ class SenseOfSpatiality(CognitiveProcess):
     generates an abstract sense of perception on the spatiality
     and allows brain to aware and assess the location of entities in space.
     
-    Here, we are transforming the SBM buffer into Z3Solver-compatible variables
-    ARC grids are also being treated as special case of entities
+    It involves object abstraction, positioning, etc.
     """
     following = {
         'memory:*': None,
@@ -92,20 +91,8 @@ class SenseOfSpatiality(CognitiveProcess):
     }
 
     def process_signal(self, signal, result):
-        pass
-        
+        result.data = signal.data
 
-    def abstract_grid(self, grid: np.ndarray) -> List[List[Int]]:
-        return [[Int(f'{i}_{j}') 
-                 for j in range(grid.shape[1])] 
-                 for i in range(grid.shape[0])]
-    
-    def abstract_prop(self, prop):
-        pass
-    
-    def abstract_attr(self, attr):
-        pass
-    
 class SenseOfMotion(CognitiveProcess):
     """
     generates an abstract and internal sense of perception on motion,

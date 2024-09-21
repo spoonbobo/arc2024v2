@@ -93,7 +93,7 @@ class Vision(CognitiveProcess):
                             for func_name, func in attr_funcs.items()
                         }
 
-        result.data = {'problem_id': problem.problem_id,
+        result.data = {'problem': problem,
                        'grids': grids, 
                        'props': props, 
                        'attrs': attrs}
