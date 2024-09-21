@@ -60,3 +60,20 @@ class Synthesis(CognitiveProcess):
 
     def process_signal(self, signal, result):
         pass
+    
+    def generate_programs(max_depth, return_type):
+        if max_depth == 0:
+            return []
+        programs = []
+        for prim_name, prim_info in primitives.items():
+            if prim_info['return_type'] != return_type:
+                continue
+
+            arg_types = prim_info['arg_types']
+            arg_program_lists = [
+                generate_programs(max_depth - 1, arg_type) for arg_type in arg_types
+            ]
+            for args in product(*arg_program_lists):
+                program = ProgramNode(prim_name, args)
+                programs.append(program)
+        return programs
