@@ -1,5 +1,6 @@
 # https://www.santanderopenacademy.com/en/blog/cognitive-processes.html
 from abc import ABC, abstractmethod
+import pickle
 from typing import Any
 from multiprocessing import Process, Queue
 from multiprocessing.shared_memory import SharedMemory
@@ -46,6 +47,13 @@ class CognitiveProcess(ABC):
     def produce(self, result):
         for _, signal_queue in self.subscribers.items():
             signal_queue.put(result)
+            
+        
+    def load_primitives(self):
+        primitive_mem = SharedMemory(name='primitive_mem')
+        pickled_data = bytes(primitive_mem.buf)
+        primitives = pickle.loads(pickled_data)
+        return primitives
 
     @abstractmethod
     def process_signal(self, signal, result, *args, **kwargs):
